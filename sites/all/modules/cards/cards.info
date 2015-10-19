@@ -1,0 +1,5 @@
+name = Cards
+description = Displays a greeting card
+package = Practice Modules
+core = 7.x
+files[] = cards.module
