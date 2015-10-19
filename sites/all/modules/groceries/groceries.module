@@ -33,15 +33,23 @@ function groceries_list() {
 function display_list() {
   $my_list = groceries_list();
   $list_string = "";
+  $total_price = 1;
 
   foreach ($my_list as $list_item_key => $list_item_value) {
     $list_string .= "<p>" . $list_item_key . "</p>";
     foreach ($my_list[$list_item_key] as $item_key => $item_value) {
+      $total_price *= $item_value;
       $list_string .= "
       <ul>
         <li>" . $item_key . " " . $item_value . "</li>
+
       </ul>";
+      var_dump($item_value);
+
     }
+    $list_string .= "
+      <p>" . $total_price . "</p>";
+    $total_price = 1;
   }
   return $list_string;
 
