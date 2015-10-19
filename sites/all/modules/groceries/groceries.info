@@ -1,0 +1,5 @@
+name = Grocery List
+description = Displays a grocery list.
+package = Practice Modules
+core = 7.x
+files[] = groceries.module
