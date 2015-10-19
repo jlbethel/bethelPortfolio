@@ -1,0 +1,21 @@
+<?php
+function pet_menu() {
+  $items = array();
+  $items['favorite_pet'] = array(
+    'title' => 'Favorite Pet',
+    'page callback' => 'pet_frodo',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function pet_frodo() {
+  return '
+    <h1> This is a page dedicated my deceassed dog Frodo</h1>
+    <p> Ipsum Lorem</p>
+    <img src="sites/all/modules/pet/dog-05.jpg" alt="puppy pic">
+    <a href="https://www.petfinder.com/dog-breeds/">Dog Breeds</a>
+
+  ';
+}

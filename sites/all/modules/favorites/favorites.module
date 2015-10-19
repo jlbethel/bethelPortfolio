@@ -1,0 +1,56 @@
+<?php
+function favorites_menu() {
+  $items = array();
+  $items['favorite_movies'] = array(
+    'title' => 'Favorite Movies',
+    'page callback' => 'show_movies',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['favorite_books'] = array(
+    'title' => 'Favorite Books',
+    'page callback' => 'show_books',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['favorite_songs'] = array(
+    'title' => 'Favorite Songs',
+    'page callback' => 'show_songs',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function show_movies() {
+  return '
+    <ul>
+      <li>Fellowship of the Ring</li>
+      <li>Two Towers</li>
+      <li>Return of the King</li>
+    </ul>
+  ';
+}
+
+function show_books() {
+  return '
+    <ul>
+      <li>Fellowship of the Ring</li>
+      <li>Two Towers</li>
+      <li>Return of the King</li>
+    </ul>
+  ';
+}
+
+function show_songs() {
+  return '
+    <ul>
+      <li>Theme from Fellowship of the Ring</li>
+      <li>Theme from Two Towers</li>
+      <li>Theme from Return of the King</li>
+    </ul>
+  ';
+}
