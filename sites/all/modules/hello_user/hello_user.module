@@ -1,0 +1,19 @@
+<?php
+function hello_user_menu() {
+  $items = array();
+  $items['hello_user'] = array(
+    'title' => 'Hello user!',
+    'page callback' => 'hi_user',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function hi_user() {
+  return '<p>Way to go! You successfully created a user!</p>';
+}
+
+function greeting_user_insert() {
+  $_GET['destination'] = 'hello_user';
+}

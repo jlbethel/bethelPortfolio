@@ -1,0 +1,5 @@
+name = Hello User
+description = Congratulates the admin on her success after adding a user.
+package = Epicodus Examples
+core = 7.x
+files[] = hello_user.module;
