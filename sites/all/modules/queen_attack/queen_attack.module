@@ -1,0 +1,77 @@
+<?php
+function queen_attack_menu() {
+  $items = array();
+  $items['queen_attack'] = array(
+    'title' => 'Queen Attack',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('queen_attack_form'),
+  );
+  $items['queen_result'] = array(
+    'tile' => 'Success',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'queen_attack_result',
+  );
+  return $items;
+}
+
+function queen_attack_form() {
+  $form = array();
+  $form['queen_x_position'] = array(
+    '#title' => 'Queen X Position',
+    '#type' => 'textfield',
+    '#description' => t('Enter the x position of your queen'),
+  );
+
+  $form['queen_y_position'] = array(
+    '#title' => 'Queen Y Position',
+    '#type' => 'textfield',
+    '#description' => t('Enter the y position of your queen'),
+  );
+
+  $form['opponent_x_position'] = array(
+    '#title' => 'Opponent X Position',
+    '#type' => 'textfield',
+    '#description' => t('Enter the X position of the piece you want to attack'),
+  );
+
+  $form['opponent_y_position'] = array(
+    '#title' => 'Queen Y Position',
+    '#type' => 'textfield',
+    '#description' => t('Enter the Y position of your queen'),
+  );
+
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Check Move',
+  );
+  return $form;
+}
+
+function queen_attack_form_submit($form, &$form_state) {
+  $queen_x = $form_state['values']['queen_x_position'];
+  $queen_y = $form_state['values']['queen_y_position'];
+  $opponent_x = $form_state['values']['opponent_x_position'];
+  $opponent_y = $form_state['values']['opponent_y_position'];
+  $attack_result = "";
+  if ($queen_x >= 9 || $queen_y >= 9 || $opponent_x >= 9 || $opponent_y >= 9) {
+    $attack_result = "There are invalid positions on the board.";
+  } elseif($queen_x === $opponent_x ||
+           $queen_y === $opponent_y ||
+           abs($queen_x - $opponent_x) === abs($queen_y - $opponent_y)) {
+      $attack_result = "The queen can and will strike!!";
+    } else {
+        $attack_result = "The queen can not attack";
+      }
+
+  $_SESSION ['attack_output'] = $attack_result;
+  $form_state['redirect'] = 'queen_result';
+}
+
+function queen_attack_result() {
+  $outcome = $_SESSION['attack_output'];
+  return $outcome;
+}
