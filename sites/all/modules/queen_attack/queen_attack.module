@@ -57,6 +57,11 @@ function queen_attack_form_submit($form, &$form_state) {
   $opponent_x = $form_state['values']['opponent_x_position'];
   $opponent_y = $form_state['values']['opponent_y_position'];
   $attack_result = "";
+  //account for actual positions on a board in a (x,y) numeric relationship,
+  //check to see if they are in the same row by matching either x or y
+  //check to see if they are diagnally compatable by testing for the differences between
+  //x & x and y & y being equal - all legal diagnal movements for queen meet this standard.
+  //test absolute values since negative intergers are possible for matching combos.
   if ($queen_x >= 9 || $queen_y >= 9 || $queen_x <= 0 || $queen_y <= 0||
   $opponent_x >= 9 || $opponent_y >= 9 || $opponent_x <= 0 || $opponent_y <= 0) {
     $attack_result = "There are invalid positions on the board.";

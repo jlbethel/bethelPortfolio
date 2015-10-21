@@ -38,7 +38,9 @@ function clock_form() {
   );
   return $form;
 }
-
+//In the function below, we calculate the absolute position by multiplying the time by the
+//absolute positioning degree it takes to get to that spot on the clock(6 degrees per minute hand),
+//then run it through an equation to get the angle. HR hand moves 30 degrees per hour
 function clock_form_submit($form, &$form_state) {
   $hour_hand = $form_state['values']['hour_hand'];
   $minute_hand = $form_state['values']['minute_hand'];
