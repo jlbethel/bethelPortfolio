@@ -57,8 +57,11 @@ function queen_attack_form_submit($form, &$form_state) {
   $opponent_x = $form_state['values']['opponent_x_position'];
   $opponent_y = $form_state['values']['opponent_y_position'];
   $attack_result = "";
-  if ($queen_x >= 9 || $queen_y >= 9 || $opponent_x >= 9 || $opponent_y >= 9) {
+  if ($queen_x >= 9 || $queen_y >= 9 || $queen_x <= 0 || $queen_y <= 0||
+  $opponent_x >= 9 || $opponent_y >= 9 || $opponent_x <= 0 || $opponent_y <= 0) {
     $attack_result = "There are invalid positions on the board.";
+  } elseif($queen_x == $opponent_x && $opponent_y == $queen_y) {
+    $attack_result = "The queen and advisary can not occupy the same space.";
   } elseif($queen_x === $opponent_x ||
            $queen_y === $opponent_y ||
            abs($queen_x - $opponent_x) === abs($queen_y - $opponent_y)) {
