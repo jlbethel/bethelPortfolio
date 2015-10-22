@@ -23,24 +23,32 @@ function queen_attack_form() {
     '#title' => 'Queen X Position',
     '#type' => 'textfield',
     '#description' => t('Enter the x position of your queen'),
+    '#element_validate' => array('element_validate_board', 'element_validate_integer'),
+    '#required' => TRUE,
   );
 
   $form['queen_y_position'] = array(
     '#title' => 'Queen Y Position',
     '#type' => 'textfield',
     '#description' => t('Enter the y position of your queen'),
+    '#element_validate' => array('element_validate_board', 'element_validate_integer'),
+    '#required' => TRUE,
   );
 
   $form['opponent_x_position'] = array(
     '#title' => 'Opponent X Position',
     '#type' => 'textfield',
     '#description' => t('Enter the X position of the piece you want to attack'),
+    '#element_validate' => array('element_validate_board', 'element_validate_integer'),
+    '#required' => TRUE,
   );
 
   $form['opponent_y_position'] = array(
     '#title' => 'Queen Y Position',
     '#type' => 'textfield',
     '#description' => t('Enter the Y position of your queen'),
+    '#element_validate' => array('element_validate_board', 'element_validate_integer'),
+    '#required' => TRUE,
   );
 
 
@@ -82,4 +90,10 @@ function queen_attack_form_submit($form, &$form_state) {
 function queen_attack_result() {
   $outcome = $_SESSION['attack_output'];
   return $outcome;
+}
+
+function element_validate_board($element) {
+  if($element['#value'] > 8 || $element['#value'] < 1) {
+    form_error($element, t('Number must between 1 and 8.'));
+  }
 }
