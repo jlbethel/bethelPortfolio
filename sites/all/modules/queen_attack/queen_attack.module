@@ -88,12 +88,17 @@ function queen_attack_form_submit($form, &$form_state) {
 }
 
 function queen_attack_result() {
-  $outcome = $_SESSION['attack_output'];
-  return $outcome;
+  return $_SESSION['attack_output'];
 }
 
 function element_validate_board($element) {
   if($element['#value'] > 8 || $element['#value'] < 1) {
     form_error($element, t('Number must between 1 and 8.'));
+  }
+}
+
+function queen_attack_form_validate($form, &$form_state) {
+  if ($form_state['values']['queen_x_position'] === $form_state['values']['opponent_x_position'] && $form_state['values']['queen_y_position'] === $form_state['values']['opponent_y_position']) {
+    form_set_error( "queen_x_position", "The queen and opponent can't occupy the same space");
   }
 }
