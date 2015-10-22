@@ -9,7 +9,7 @@ function queen_attack_menu() {
     'page arguments' => array('queen_attack_form'),
   );
   $items['queen_result'] = array(
-    'tile' => 'Success',
+    'title' => 'Success',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
     'page callback' => 'queen_attack_result',

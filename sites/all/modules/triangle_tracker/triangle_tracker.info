@@ -1,0 +1,5 @@
+name = Triangle Tracker
+description = Allows users to enter three numbers representing the length of each of the three sides of a triangle, then displays a page which tells them what kind of triangle it is.
+package = Epicodus Examples
+core = 7.x
+files[] = triangle_tracker.module
