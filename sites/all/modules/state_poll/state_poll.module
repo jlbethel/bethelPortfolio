@@ -110,14 +110,11 @@ function element_validate_state($element) {
     'WI' => 'Wisconsin',
     'WY' => 'Wyoming',
   ];
-var_dump($element['#value']);
-  foreach ($state_array as $key => $value) {
-    if ($element['#value'] !== $key ||
-        $element['#value'] !== $value ||
-        $element['#value'] !== strtolower($key) ||
-        $element['#value'] !== strtolower($value)
-    ) {
-      form_error($element, t('Please enter your state name in one of the following formats: Oregon, oregon, OR, or.'));
-    }
+
+  if (!in_array($element['#value'], $state_array) &&
+      !array_key_exists($element['#value'], $state_array) &&
+      !in_array($element['#value'], array_map('strtolower', $state_array)) &&
+      !array_key_exists($element['#value'], array_change_key_case($state_array, CASE_LOWER))) {
+    form_error($element, t('Please enter your state name in one of the following formats: Oregon, oregon, OR, or.'));
   }
-}
+  }
