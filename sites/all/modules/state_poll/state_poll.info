@@ -1,0 +1,5 @@
+name = State Poll
+description = Should ask users to enter their favorite flavor of ice cream into a text field. The user must also fill in their home state in a second text field.
+package = Epicodus Examples
+core = 7.x
+files[] = state_poll.module

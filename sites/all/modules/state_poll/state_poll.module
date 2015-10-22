@@ -1,0 +1,123 @@
+<?php
+
+function state_poll_menu() {
+  $items = array();
+  $items['state_poll'] = array(
+    'title' => 'State Poll',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('state_poll_form'),
+  );
+
+  $items['poll_results'] = array(
+    'title' => 'Poll Results',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'poll_results',
+  );
+
+  return $items;
+}
+
+function state_poll_form() {
+  $form = array();
+  $form['ice_cream'] = array(
+    '#title' => 'Ice Cream',
+    '#type' => 'textfield',
+    '#description' => t('Enter your favorite ice cream!'),
+    '#required' => TRUE,
+  );
+
+  $form['state'] = array(
+    '#title' => 'State',
+    '#type' => 'textfield',
+    '#description' => t('What state are you from?'),
+    '#element_validate' => array('element_validate_state'),
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Go!',
+  );
+  return $form;
+}
+
+function state_poll_form_submit($form, &$form_state) {
+  $ice_cream = $form_state['values']['ice_cream'];
+  $state_name = $form_state['values']['state'];
+  $return_phrase = "<h3>Thanks!</h3><p>We have you down for $ice_cream in the state of $state_name";
+
+  $_SESSION['return_phrase'] = $return_phrase;
+  $form_state['redirect'] = 'poll_results';
+}
+
+function poll_results() {
+  return $_SESSION['return_phrase'];
+}
+
+function element_validate_state($element) {
+  $state_array = [
+    'AL' => 'Alabama',
+    'AK' => 'Alaska',
+    'AZ' => 'Arizona',
+    'AR' => 'Arkansas',
+    'CA' => 'California',
+    'CO' => 'Colorado',
+    'CT' => 'Connecticut',
+    'DE' => 'Delaware',
+    'FL' => 'Florida',
+    'GA' => 'Georgia',
+    'HI' => 'Hawaii',
+    'ID' => 'Idaho',
+    'IL' => 'Illinois',
+    'IN' => 'Indiana',
+    'IA' => 'Iowa',
+    'KS' => 'Kansas',
+    'KY' => 'Kentucky',
+    'LA' => 'Louisiana',
+    'ME' => 'Maine',
+    'MD' => 'Maryland',
+    'MA' => 'Massachusetts',
+    'MI' => 'Michigan',
+    'MN' => 'Minnesota',
+    'MS' => 'Mississippi',
+    'MO' => 'Missouri',
+    'MT' => 'Montana',
+    'NE' => 'Nebraska',
+    'NV' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'OH' => 'Ohio',
+    'OK' => 'Oklahoma',
+    'OR' => 'Oregon',
+    'PA' => 'Pennsylvania',
+    'RI' => 'Rhode Island',
+    'SC' => 'South Carolina',
+    'SD' => 'South Dakota',
+    'TN' => 'Tennessee',
+    'TX' => 'Texas',
+    'UT' => 'Utah',
+    'VT' => 'Vermont',
+    'VA' => 'Virginia',
+    'WA' => 'Washington',
+    'WV' => 'West Virginia',
+    'WI' => 'Wisconsin',
+    'WY' => 'Wyoming',
+  ];
+var_dump($element['#value']);
+  foreach ($state_array as $key => $value) {
+    if ($element['#value'] !== $key ||
+        $element['#value'] !== $value ||
+        $element['#value'] !== strtolower($key) ||
+        $element['#value'] !== strtolower($value)
+    ) {
+      form_error($element, t('Please enter your state name in one of the following formats: Oregon, oregon, OR, or.'));
+    }
+  }
+}
